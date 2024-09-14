@@ -18,12 +18,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_REGISTRY_USER }}
           password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
-
+          registry: ${{ secrets.ACR_REGISTRY }}
+          
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: nocloud/modified_lobechat_database
+          images: main0/modified_lobechat_database
           tags: |
             type=raw,value=latest
             type=ref,event=tag
