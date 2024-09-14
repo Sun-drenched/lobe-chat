@@ -24,7 +24,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: main0/lobechat_database_clerk
+          images: ${{ secrets.ACR_REGISTRY }}/main0/lobechat_database_clerk
           tags: |
             type=raw,value=latest
             type=ref,event=tag
