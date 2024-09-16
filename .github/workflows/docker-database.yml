@@ -2,9 +2,8 @@ name: Publish Database Docker Image
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main 
+  release:
+    types: [published] 
 
 jobs:
   push_to_registry:
