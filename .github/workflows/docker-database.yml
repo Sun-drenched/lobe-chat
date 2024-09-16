@@ -1,9 +1,9 @@
 name: Publish Database Docker Image
 
-on:
-  workflow_dispatch:
-  release:
-    types: [published] 
+on:   # 配置触发workflow的事件
+  push:
+    branches:   # master分支有push时触发此workflow
+      - 'main'
 
 jobs:
   push_to_registry:
