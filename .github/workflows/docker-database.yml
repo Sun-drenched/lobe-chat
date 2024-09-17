@@ -1,8 +1,9 @@
 name: Publish Database Docker Image
 
-on:   # 配置触发workflow的事件
+on:  
+  workflow_dispatch:
   push:
-    branches:   # master分支有push时触发此workflow
+    branches:
       - main
 
 jobs:
