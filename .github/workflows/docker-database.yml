@@ -3,7 +3,7 @@ name: Publish Database Docker Image
 on:   # 配置触发workflow的事件
   push:
     branches:   # master分支有push时触发此workflow
-      - 'main'
+      - main
 
 jobs:
   push_to_registry:
