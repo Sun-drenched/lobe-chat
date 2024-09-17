@@ -14,7 +14,12 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
-
+        
+      - name: Configure Git
+        run: |
+          git config --local user.email "${{ secrets.GIT_USER_EMAIL }}"
+          git config --local user.name "${{ secrets.GIT_USER_NAME }}"
+          
       - name: Get latest release tag from upstream
         id: get_release
         run: |
