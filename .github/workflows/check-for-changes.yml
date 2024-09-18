@@ -29,6 +29,7 @@ jobs:
           else
             echo "No changes detected."
             echo "::set-output name=changes_detected::false"
+          fi  # 确保 if 语句正确结束
       
       # Step 3: Trigger Docker Build workflow if changes are detected
       - name: Trigger Docker Build
