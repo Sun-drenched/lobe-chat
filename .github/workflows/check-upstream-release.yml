@@ -1,6 +1,7 @@
 name: Check for Upstream Release Tag Updates
 
 on:
+  workflow_dispatch:  # 允许手动触发
   workflow_run:
     workflows: ["Upstream Sync"]  # 当同步工作流完成时触发
     types:
