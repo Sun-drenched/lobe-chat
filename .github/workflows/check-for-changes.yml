@@ -25,15 +25,15 @@ jobs:
           REMOTE_HASH=$(git rev-parse origin/main)
           if [ "$LOCAL_HASH" != "$REMOTE_HASH" ]; then
             echo "Changes detected."
-            echo "::set-output name=changes_detected::true"
+            echo "changes_detected=true" >> $GITHUB_ENV  # 使用环境文件
           else
             echo "No changes detected."
-            echo "::set-output name=changes_detected::false"
-          fi  # 确保 if 语句正确结束
+            echo "changes_detected=false" >> $GITHUB_ENV  # 使用环境文件
+          fi
       
       # Step 3: Trigger Docker Build workflow if changes are detected
       - name: Trigger Docker Build
-        if: steps.check_changes.outputs.changes_detected == 'true'
+        if: env.changes_detected == 'true'
         uses: actions/github-script@v6
         with:
           script: |
