@@ -69,6 +69,6 @@ jobs:
             github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'docker-database.yml',  # 注释移除，放到单独行上
+              workflow_id: 'docker-database.yml', 
               ref: 'main'
             })
