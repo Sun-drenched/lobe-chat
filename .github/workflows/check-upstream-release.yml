@@ -48,7 +48,8 @@ jobs:
           else
             echo "No new release."
             echo "new_release=false" >> $GITHUB_ENV
-
+          fi
+          
       # Step 4: 更新本地缓存的最新 release tag
       - name: Cache the latest release tag
         if: env.new_release == 'true'
