@@ -2,7 +2,7 @@ name: Check for Upstream Release Tag Updates
 
 on:
   workflow_run:
-    workflows: ["Upstream Sync"]  # 当同步工作流完成时触发
+    workflows: ["Upstream Sync"]
     types:
       - completed
 
@@ -39,7 +39,7 @@ jobs:
           else
             LAST_CHECKED_TAG="none"
             echo "No previous release tag found, assuming this is the first run."
-          fi
+          fi  # 关键：if 语句必须用 fi 结束
 
           if [ "$LATEST_TAG" != "$LAST_CHECKED_TAG" ]; then
             echo "New release detected: $LATEST_TAG"
