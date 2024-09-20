@@ -1,9 +1,8 @@
 name: Check for Upstream Release Tag Updates
 
 on:
-  workflow_dispatch:  # 允许手动触发
   workflow_run:
-    workflows: ["Upstream Sync"]  # 当同步工作流完成时触发
+    workflows: ["Upstream Sync"]
     types:
       - completed
 
@@ -28,7 +27,6 @@ jobs:
         with:
           path: ./last_checked_tag.txt
           key: last-checked-tag
-          restore-keys: last-checked-tag
 
       # Step 3: 比较上游仓库的 release tag 与上次检查的 tag
       - name: Compare tags
@@ -45,19 +43,17 @@ jobs:
           if [ "$LATEST_TAG" != "$LAST_CHECKED_TAG" ]; then
             echo "New release detected: $LATEST_TAG"
             echo "new_release=true" >> $GITHUB_ENV
+            echo "$LATEST_TAG" > last_checked_tag.txt  # 更新版本号
           else
             echo "No new release."
             echo "new_release=false" >> $GITHUB_ENV
           fi
-          
-      # Step 4: 更新本地缓存的最新 release tag
-      - name: Cache the latest release tag
-        if: env.new_release == 'true'
-        run: |
-          echo "$LATEST_TAG" > last_checked_tag.txt
+
+      # Step 4: 缓存更新后的最新 release tag
       - uses: actions/cache@v3
+        if: env.new_release == 'true'
         with:
-          path: ./last_checked_tag.txt
+          path: last_checked_tag.txt
           key: last-checked-tag
 
       # Step 5: 触发 Docker build 工作流（如果有新 release tag）
@@ -69,6 +65,6 @@ jobs:
             github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'docker-database.yml', 
+              workflow_id: 'docker-database.yml',
               ref: 'main'
             })
