@@ -21,7 +21,7 @@ jobs:
           echo "Latest upstream release tag: $LATEST_TAG"
           echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
 
-      # Step 2: 获取本地缓存的最新 release tag
+      # Step 2: 恢复本地缓存的最新 release tag
       - name: Restore last checked release tag
         id: restore_tag
         uses: actions/cache@v3
@@ -29,7 +29,16 @@ jobs:
           path: ./last_checked_tag.txt
           key: last-checked-tag
 
-      # Step 3: 比较上游仓库的 release tag 与上次检查的 tag
+      # Step 3: 输出当前保存的最新版本号
+      - name: Output current saved release tag
+        run: |
+          if [ -f last_checked_tag.txt ]; then
+            echo "Current saved release tag: $(cat last_checked_tag.txt)"
+          else
+            echo "No previous release tag found."
+          fi
+
+      # Step 4: 比较上游仓库的 release tag 与上次检查的 tag
       - name: Compare tags
         id: compare_tags
         run: |
@@ -50,14 +59,21 @@ jobs:
             echo "new_release=false" >> $GITHUB_ENV
           fi
 
-      # Step 4: 缓存更新后的最新 release tag
-      - uses: actions/cache@v3
+      # Step 5: 缓存更新后的最新 release tag
+      - name: Cache the latest release tag
+        uses: actions/cache@v3
         if: env.new_release == 'true'
         with:
           path: last_checked_tag.txt
           key: last-checked-tag
 
-      # Step 5: 触发 Docker build 工作流（如果有新 release tag）
+      # Step 6: 输出更新后的保存的版本号
+      - name: Output updated saved release tag
+        if: env.new_release == 'true'
+        run: |
+          echo "Updated saved release tag: $(cat last_checked_tag.txt)"
+
+      # Step 7: 触发 Docker build 工作流（如果有新 release tag）
       - name: Trigger Docker Build
         if: env.new_release == 'true'
         uses: actions/github-script@v6
