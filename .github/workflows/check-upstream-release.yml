@@ -1,6 +1,7 @@
 name: Check for Upstream Release Tag Updates
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["Upstream Sync"]
     types:
