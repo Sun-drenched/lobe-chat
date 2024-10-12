@@ -165,6 +165,10 @@ ENV NEXT_AUTH_SECRET="" \
     NEXT_AUTH_SSO_PROVIDERS="" \
     NEXTAUTH_URL=""
 
+ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_Y2hhcm1lZC1raXdpLTg2LmNsZXJrLmFjY291bnRzLmRldiQ"
+ENV CLERK_SECRET_KEY="sk_live_xxxxxxxxxxxxxxxxxxxxxx"
+ENV CLERK_WEBHOOK_SECRET="whsec_xxxxxxxxxxxxxxxxxxxxx"
+
 # S3
 ENV NEXT_PUBLIC_S3_DOMAIN="" \
     S3_PUBLIC_DOMAIN="" \
