@@ -51,6 +51,10 @@ ENV NEXT_PUBLIC_SERVICE_MODE="${NEXT_PUBLIC_SERVICE_MODE:-server}" \
     DATABASE_URL="postgres://postgres:password@localhost:5432/postgres" \
     KEY_VAULTS_SECRET="use-for-build"
 
+ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_Y2hhcm1lZC1raXdpLTg2LmNsZXJrLmFjY291bnRzLmRldiQ"
+ENV CLERK_SECRET_KEY="sk_live_xxxxxxxxxxxxxxxxxxxxxx"
+ENV CLERK_WEBHOOK_SECRET="whsec_xxxxxxxxxxxxxxxxxxxxx"
+
 # Sentry
 ENV NEXT_PUBLIC_SENTRY_DSN="${NEXT_PUBLIC_SENTRY_DSN}" \
     SENTRY_ORG="" \
@@ -164,10 +168,6 @@ ENV KEY_VAULTS_SECRET="" \
 ENV NEXT_AUTH_SECRET="" \
     NEXT_AUTH_SSO_PROVIDERS="" \
     NEXTAUTH_URL=""
-
-ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_Y2hhcm1lZC1raXdpLTg2LmNsZXJrLmFjY291bnRzLmRldiQ"
-ENV CLERK_SECRET_KEY="sk_live_xxxxxxxxxxxxxxxxxxxxxx"
-ENV CLERK_WEBHOOK_SECRET="whsec_xxxxxxxxxxxxxxxxxxxxx"
 
 # S3
 ENV NEXT_PUBLIC_S3_DOMAIN="" \
